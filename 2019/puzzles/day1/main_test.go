@@ -7,11 +7,12 @@ import (
 	"testing"
 
 	"github.com/Flaque/filet"
+	"github.com/mfesenko/adventofcode/2019/testhelpers"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestWhenFailedToLoadDataFromFileThenReadModuleMassesReturnsAnError(t *testing.T) {
-	withTmpDir(t, func(dir string) {
+	testhelpers.WithTmpDir(t, func(dir string) {
 		masses, err := readModuleMasses(dir)
 
 		assert.Error(t, err)
@@ -20,7 +21,7 @@ func TestWhenFailedToLoadDataFromFileThenReadModuleMassesReturnsAnError(t *testi
 }
 
 func TestWhenFailedToConvertDataFromTheFileToIntThenReadModuleMassesReturnsAnError(t *testing.T) {
-	withTmpDir(t, func(dir string) {
+	testhelpers.WithTmpDir(t, func(dir string) {
 		file := filet.TmpFile(t, dir, "qwerty")
 
 		masses, err := readModuleMasses(file.Name())
@@ -31,7 +32,7 @@ func TestWhenFailedToConvertDataFromTheFileToIntThenReadModuleMassesReturnsAnErr
 }
 
 func TestWhenLoadedInputDataThenReadModuleMassesReturnsMasses(t *testing.T) {
-	withTmpDir(t, func(dir string) {
+	testhelpers.WithTmpDir(t, func(dir string) {
 		testMasses := []int64{rand.Int63(), rand.Int63(), rand.Int63()}
 		file := filet.TmpFile(t, dir, massesToString(testMasses))
 
@@ -48,12 +49,6 @@ func massesToString(masses []int64) string {
 		lines[i] = strconv.FormatInt(mass, 10)
 	}
 	return strings.Join(lines, "\n")
-}
-
-func withTmpDir(t *testing.T, test func(string)) {
-	dir := filet.TmpDir(t, "")
-	defer filet.CleanUp(t)
-	test(dir)
 }
 
 func TestCalculateFuelMass(t *testing.T) {
