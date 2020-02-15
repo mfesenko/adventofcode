@@ -8,21 +8,19 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-type testData struct {
-	name          string
-	startProgram  *Program
-	resultProgram *Program
-}
-
-func TestExitCode(t *testing.T) {
-	computer := NewComputer()
+func TestExitCodeReturnsFirstCodeFromTheProgram(t *testing.T) {
 	program := randomProgram()
-	computer.InitProgram(program)
-
-	assert.Equal(t, program.Read(0), computer.ExitCode())
+	computerWithProgram(program, func(computer *Computer) {
+		assert.Equal(t, program.Read(0), computer.ExitCode())
+	})
 }
 
-func TestExecute(t *testing.T) {
+func TestExecuteUpdatesTheProgram(t *testing.T) {
+	type testData struct {
+		name          string
+		startProgram  *Program
+		resultProgram *Program
+	}
 	tests := []testData{
 		{
 			name:          "halt in the middle of the program",
@@ -65,12 +63,12 @@ func TestExecute(t *testing.T) {
 			resultProgram: NewProgram([]int64{109, -3, 12, 15, 4, 5, 99}),
 		},
 	}
-
-	computer := NewComputer()
 	for _, test := range tests {
-		computer.InitProgram(test.startProgram)
-		computer.Execute()
-		assert.Equal(t, test.resultProgram, computer.program, "test name: \"%v\"", test.name)
+		computerWithProgram(test.startProgram, func(computer *Computer) {
+			computer.Execute()
+
+			assert.Equal(t, test.resultProgram, computer.program, "test name: \"%v\"", test.name)
+		})
 	}
 }
 
@@ -91,14 +89,13 @@ func TestExecuteWithCustomInputAndOutput(t *testing.T) {
 	})
 }
 
-type testDataWithInput struct {
-	name        string
-	program     *Program
-	inputOutput map[int64]int64
-}
-
-func TestWithInputOutput(t *testing.T) {
-	tests := []testDataWithInput{
+func TestExecuteWithInputProducesExpectedOutput(t *testing.T) {
+	type testData struct {
+		name        string
+		program     *Program
+		inputOutput map[int64]int64
+	}
+	tests := []testData{
 		{
 			name:    "output 1 if input equals to 8 with position mode",
 			program: NewProgram([]int64{3, 9, 8, 9, 10, 9, 4, 9, 99, -1, 8}),
@@ -179,19 +176,13 @@ func TestWithInputOutput(t *testing.T) {
 	}
 }
 
-func computerWithProgram(program *Program, test func(computer *Computer)) {
-	computer := NewComputer()
-	computer.InitProgram(program)
-	test(computer)
-}
-
 func TestAdjustRelativeBaseChangesRelativeBase(t *testing.T) {
-	type relativeBaseTest struct {
+	type testData struct {
 		name         string
 		program      *Program
 		relativeBase int64
 	}
-	tests := []relativeBaseTest{
+	tests := []testData{
 		{
 			name:         "adjust relative base with immediate mode",
 			program:      NewProgram([]int64{109, 19, 109, -2, 99}),
@@ -206,6 +197,7 @@ func TestAdjustRelativeBaseChangesRelativeBase(t *testing.T) {
 	for _, test := range tests {
 		computerWithProgram(test.program, func(computer *Computer) {
 			computer.Execute()
+
 			assert.Equal(t, test.relativeBase, computer.relativeBase, "test: \"%v\"", test.name)
 		})
 	}
@@ -217,6 +209,7 @@ func TestCopyProgramToOutput(t *testing.T) {
 		size := program.Len()
 		output := make(chan int64, size)
 		computer.SetOutput(output)
+
 		computer.Execute()
 
 		assert.Equal(t, size, int64(len(output)))
@@ -264,4 +257,10 @@ func TestExecutePanicsWhenTryingToWriteParameterWithUnsupportedParameterMode(t *
 			computer.Execute()
 		})
 	})
+}
+
+func computerWithProgram(program *Program, test func(computer *Computer)) {
+	computer := NewComputer()
+	computer.SetProgram(program)
+	test(computer)
 }

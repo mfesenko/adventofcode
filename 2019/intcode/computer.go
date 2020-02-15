@@ -26,8 +26,8 @@ func NewComputer() *Computer {
 	}
 }
 
-// InitProgram initializes the program with noun and verb
-func (c *Computer) InitProgram(program *Program) {
+// SetProgram sets program for the computer
+func (c *Computer) SetProgram(program *Program) {
 	c.program = program.Copy()
 }
 
@@ -56,7 +56,7 @@ func (c *Computer) ExitCode() int64 {
 	return c.program.Read(0)
 }
 
-// Execute executes the program
+// Execute executes the Intcode program and returns the exit code
 func (c *Computer) Execute() int64 {
 	for i := int64(0); i < c.program.Len(); {
 		i = c.processCommand(i)
