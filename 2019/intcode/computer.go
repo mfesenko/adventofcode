@@ -2,6 +2,7 @@ package intcode
 
 import (
 	"fmt"
+	"sync"
 )
 
 const (
@@ -54,6 +55,14 @@ func (c *Computer) Output() chan int64 {
 // ExitCode returns an exit code from the program
 func (c *Computer) ExitCode() int64 {
 	return c.program.Read(0)
+}
+
+// ExecuteAsync executes the Intcode program in the goroutine and notifies the wait group when execution completes
+func (c *Computer) ExecuteAsync(done *sync.WaitGroup) {
+	go func() {
+		c.Execute()
+		done.Done()
+	}()
 }
 
 // Execute executes the Intcode program and returns the exit code
