@@ -3,9 +3,11 @@ package intcode
 import (
 	"fmt"
 	"strconv"
+	"sync"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
 )
 
 func TestExitCodeReturnsFirstCodeFromTheProgram(t *testing.T) {
@@ -236,6 +238,19 @@ func TestOutputLargeNumber(t *testing.T) {
 	program := NewProgram([]int64{104, 1125899906842624, 99})
 	computerWithProgram(program, func(computer *Computer) {
 		computer.Execute()
+
+		assert.Equal(t, program.Read(1), <-computer.Output())
+	})
+}
+
+func TestExecuteAsync(t *testing.T) {
+	program := NewProgram([]int64{104, 1125899906842624, 99})
+	computerWithProgram(program, func(computer *Computer) {
+		defer goleak.VerifyNone(t)
+		done := &sync.WaitGroup{}
+		done.Add(1)
+		computer.ExecuteAsync(done)
+		done.Wait()
 
 		assert.Equal(t, program.Read(1), <-computer.Output())
 	})
