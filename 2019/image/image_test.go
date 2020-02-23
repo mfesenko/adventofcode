@@ -34,12 +34,13 @@ func TestParseImage(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	width := 2
-	height := 2
-	image := ParseImage("0222112222120000", width, height)
+	height := 3
+	image := ParseImage("022222112222221222000022", width, height)
 
 	assert.Equal(t, [][]uint16{
 		{_black, _white},
 		{_white, _black},
+		{_transparent, _transparent},
 	}, image.Render())
 }
 
