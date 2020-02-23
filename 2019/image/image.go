@@ -20,7 +20,7 @@ type Image struct {
 // CheckSum returns a checksum for the image that is calculated as the number of 1 digits multiplied
 // by the number of 2 digits in the layer of the image that contains the fewest 0 digits.
 func (i *Image) CheckSum() int {
-	zeroPerLayer := i.digitCountPerLayer(0)
+	zeroPerLayer := i.digitCountPerLayer(_black)
 	minCount := zeroPerLayer[0]
 	minLayer := 0
 	for i := 1; i < len(zeroPerLayer); i++ {
@@ -30,7 +30,7 @@ func (i *Image) CheckSum() int {
 		}
 	}
 
-	return i.digitCountInLayer(1, minLayer) * i.digitCountInLayer(2, minLayer)
+	return i.digitCountInLayer(_white, minLayer) * i.digitCountInLayer(_transparent, minLayer)
 }
 
 func (i *Image) digitCountPerLayer(digit uint16) []int {
