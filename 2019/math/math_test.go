@@ -40,3 +40,12 @@ func TestBetweenReturnsTrueIfTheThirdArgumentIsBetweenTheFirstTwo(t *testing.T) 
 	assert.True(t, Between(a, a, a))
 	assert.False(t, Between(a, b, c))
 }
+
+func TestGCD(t *testing.T) {
+	assert.Equal(t, int32(22), GCD(0, 22))
+	assert.Equal(t, int32(22), GCD(22, 0))
+	assert.Equal(t, int32(0), GCD(0, 0))
+	assert.Equal(t, int32(1), GCD(13, 7))
+	assert.Equal(t, int32(7), GCD(21, 7))
+	assert.Equal(t, int32(3), GCD(21, 18))
+}

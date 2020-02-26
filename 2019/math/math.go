@@ -30,3 +30,11 @@ func Between(a, b, c int32) bool {
 	max := Max(a, b)
 	return min <= c && c <= max
 }
+
+// GCD returns the greatest common denominator
+func GCD(a int32, b int32) int32 {
+	if b == 0 {
+		return a
+	}
+	return GCD(b, a%b)
+}
