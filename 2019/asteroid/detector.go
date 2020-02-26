@@ -4,17 +4,10 @@ import (
 	"github.com/mfesenko/adventofcode/2019/math"
 )
 
-type (
-	// Detector analyses the asteroid map in order to find the best location to build an asteroid detection station
-	Detector struct {
-		asteroidMap Map
-	}
-
-	slope struct {
-		dx int32
-		dy int32
-	}
-)
+// Detector analyses the asteroid map in order to find the best location to build an asteroid detection station
+type Detector struct {
+	asteroidMap Map
+}
 
 // NewDetector creates a new Detector
 func NewDetector(asteroidMap Map) *Detector {
@@ -60,14 +53,4 @@ func (d *Detector) countVisibleAsteroidsFromLocation(location math.Point, astero
 	}
 
 	return len(slopes)
-}
-
-func calculateSlope(a math.Point, b math.Point) slope {
-	dx := a.X - b.X
-	dy := a.Y - b.Y
-	gcd := math.GCD(math.Abs(dx), math.Abs(dy))
-	return slope{
-		dx / gcd,
-		dy / gcd,
-	}
 }
