@@ -87,9 +87,9 @@ func calculateThrusterSignalWithFeedbackLoop(program *intcode.Program, phaseSign
 	computers[0].SetInput(computers[count-1].Output())
 
 	done := doneSignal(count)
-	for i, signal := range phaseSignals {
+	for i := count - 1; i >= 0; i-- {
 		computer := computers[i]
-		computer.Input() <- signal
+		computer.Input() <- phaseSignals[i]
 		if i == 0 {
 			computer.Input() <- 0
 		}
