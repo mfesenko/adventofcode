@@ -20,8 +20,9 @@ define run_mockgen
 	echo "GOTOOLDIR = ${GOTOOLDIR}"
 	ls -l "${GOROOT}/bin"
 	ls -l "${HOME}/go/bin"
-	"${GOPATH}/bin/mockgen" -version
-  	"${GOPATH}/bin/mockgen" -destination=$(2)/mocks.go $(1) $(subst $(semicolon),$(comma),$(3))
+	ls -l "${GOBIN}"
+	"${GOBIN}/mockgen" -version
+  	"${GOBIN}/mockgen" -destination=$(2)/mocks.go $(1) $(subst $(semicolon),$(comma),$(3))
 endef
 
 define local_mockgen
