@@ -1,12 +1,12 @@
 .PHONY: mocks install-mockgen
 
 PROJECT_ROOT  = github.com/mfesenko/adventofcode
-GOMOCK = $(go get github.com/golang/mock/gomock github.com/golang/mock/mockgen)
 
 install-mockgen:
-	GO111MODULE=on go get github.com/golang/mock/mockgen@latest
+	GO111MODULE=on go get github.com/golang/mock/mockgen
+	GO111MODULE=on go install github.com/golang/mock/mockgen
 
-mocks: install-mockgen $(GOMOCK)
+mocks: install-mockgen
 	$(call local_mockgen,2019/async,Executable)
 
 test: mocks
