@@ -1,6 +1,6 @@
 .PHONY: mocks install-mockgen
 
-PROJECT_ROOT  = github.com/mfesenko/adventofcode
+PROJECT_ROOT = github.com/mfesenko/adventofcode
 
 install-mockgen:
 	GO111MODULE=on go get -v -u github.com/golang/mock/mockgen
@@ -13,7 +13,7 @@ test: mocks
 
 define run_mockgen
   	mkdir -p $(2) && rm -rf $(2)/*
-  	mockgen -destination=$(2)/mocks.go $(1) $(subst $(semicolon),$(comma),$(3))
+  	${HOME}/go/bin/mockgen -destination=$(2)/mocks.go $(1) $(subst $(semicolon),$(comma),$(3))
 endef
 
 define local_mockgen

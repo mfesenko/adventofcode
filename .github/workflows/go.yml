@@ -5,8 +5,6 @@ jobs:
   build:
     name: Test
     runs-on: ubuntu-latest
-    env:
-        PATH: ${PATH}:${HOME}/go/bin
     steps:
 
     - name: Set up Go 1.13
