@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 
+	"github.com/mfesenko/adventofcode/2019/async"
 	"github.com/mfesenko/adventofcode/2019/intcode"
 	"github.com/mfesenko/adventofcode/2019/slice"
 )
@@ -64,7 +65,9 @@ func calculateThrusterSignal(program *intcode.Program, phaseSignals []int64) int
 	for _, signal := range phaseSignals {
 		computer := intcode.NewComputer()
 		computer.SetProgram(program)
-		computer.ExecuteAsync(done)
+		executor := async.NewExecutor(computer)
+		executor.ExecuteAsync(done)
+
 		computer.Input() <- signal
 		computer.Input() <- output
 		output = <-computer.Output()
@@ -93,7 +96,8 @@ func calculateThrusterSignalWithFeedbackLoop(program *intcode.Program, phaseSign
 		if i == 0 {
 			computer.Input() <- 0
 		}
-		computer.ExecuteAsync(done)
+		executor := async.NewExecutor(computer)
+		executor.ExecuteAsync(done)
 	}
 	done.Wait()
 	return <-computers[count-1].Output()
