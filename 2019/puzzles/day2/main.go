@@ -24,7 +24,8 @@ func runGravityAssistProgram(computer *intcode.Computer, program *intcode.Progra
 	program.SetNoun(noun)
 	program.SetVerb(verb)
 	computer.SetProgram(program)
-	return computer.Execute()
+	computer.Execute()
+	return computer.ExitCode()
 }
 
 func findNounAndVerb(computer *intcode.Computer, program *intcode.Program, expectedResult int64) int64 {
