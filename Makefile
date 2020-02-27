@@ -13,7 +13,7 @@ test: mocks
 
 define run_mockgen
   	mkdir -p $(2) && rm -rf $(2)/*
-  	"${GOBIN}/mockgen" -destination=$(2)/mocks.go $(1) $(subst $(semicolon),$(comma),$(3))
+  	mockgen -destination=$(2)/mocks.go $(1) $(subst $(semicolon),$(comma),$(3))
 endef
 
 define local_mockgen
