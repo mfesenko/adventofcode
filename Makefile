@@ -13,7 +13,13 @@ test: mocks
 
 define run_mockgen
   	mkdir -p $(2) && rm -rf $(2)/*
-	echo "${GOPATH}"
+	echo "GOPATH = ${GOPATH}"
+	echo "GOBIN = ${GOBIN}"
+	echo "HOME = ${HOME}"
+	echo "GOROOT = ${GOROOT}"
+	echo "GOTOOLDIR = ${GOTOOLDIR}"
+	ls -l "${GOROOT}/bin"
+	ls -l "${HOME}/go/bin"
 	"${GOPATH}/bin/mockgen" -version
   	"${GOPATH}/bin/mockgen" -destination=$(2)/mocks.go $(1) $(subst $(semicolon),$(comma),$(3))
 endef

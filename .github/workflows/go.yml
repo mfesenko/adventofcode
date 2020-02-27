@@ -5,8 +5,6 @@ jobs:
   build:
     name: Test
     runs-on: ubuntu-latest
-    env:
-        GOPATH: /mfesenko/advenofcode/go/
     steps:
 
     - name: Set up Go 1.13
