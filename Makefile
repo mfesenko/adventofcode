@@ -3,7 +3,7 @@
 PROJECT_ROOT  = github.com/mfesenko/adventofcode
 
 install-mockgen:
-	GO111MODULE=on go install github.com/golang/mock/mockgen
+	GO111MODULE=on go get github.com/golang/mock/mockgen@latest
 
 mocks: install-mockgen 	
 	$(call local_mockgen,2019/async,Executable)
