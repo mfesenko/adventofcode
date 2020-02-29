@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/mfesenko/adventofcode/2019/image"
+	"github.com/mfesenko/adventofcode/2019/drawing"
 	"github.com/mfesenko/adventofcode/2019/input"
 )
 
@@ -16,7 +16,7 @@ func main() {
 
 	width := 25
 	height := 6
-	image := image.ParseImage(input[0], width, height)
+	image := drawing.ParseImage(input[0], width, height)
 	fmt.Printf("Part 1: checksum = %v\n", image.CheckSum())
 	fmt.Println("Part 2:")
 	fmt.Println(image.String())
