@@ -35,22 +35,23 @@ func (e *Executor) Running() bool {
 
 // ExecuteAsync starts an execution
 func (e *Executor) ExecuteAsync(done *sync.WaitGroup) {
-	e.withWriteLock(func() {
-		e.running = true
-	})
+	e.lock.Lock()
+	defer e.lock.Unlock()
+
+	if e.running {
+		return
+	}
+
+	e.running = true
 	go e.execute(done)
 }
 
 func (e *Executor) execute(done *sync.WaitGroup) {
-	e.withWriteLock(func() {
-		e.executable.Execute()
-		e.running = false
-		done.Done()
-	})
-}
+	e.executable.Execute()
 
-func (e *Executor) withWriteLock(f func()) {
 	e.lock.Lock()
-	defer e.lock.Unlock()
-	f()
+	e.running = false
+	e.lock.Unlock()
+
+	done.Done()
 }

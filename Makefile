@@ -7,6 +7,7 @@ install-mockgen:
 
 mocks: install-mockgen
 	$(call local_mockgen,2019/async,Executable)
+	$(call local_mockgen,2019/drawing,Computer)
 
 test: mocks
 	go test -cover ./...

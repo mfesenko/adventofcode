@@ -60,3 +60,37 @@ func newWaitGroup() *sync.WaitGroup {
 	done.Add(1)
 	return done
 }
+
+func TestCannotStartSecondExecutionIfFirstExecutionIsStillRunning(t *testing.T) {
+	withExecutor(t, func(executor *Executor, executable *mock_async.MockExecutable) {
+		execution := make(chan bool)
+		executable.EXPECT().Execute().Do(func() {
+			execution <- true
+		})
+
+		done := newWaitGroup()
+
+		executor.ExecuteAsync(done)
+		executor.ExecuteAsync(done)
+		<-execution
+	})
+}
+
+func TestCanStartSecondExecutionIfFirstExecutionCompleted(t *testing.T) {
+	withExecutor(t, func(executor *Executor, executable *mock_async.MockExecutable) {
+		execution := make(chan bool)
+		executable.EXPECT().Execute().Times(2).Do(func() {
+			execution <- true
+		})
+
+		firstDone := newWaitGroup()
+		secondDone := newWaitGroup()
+
+		executor.ExecuteAsync(firstDone)
+		<-execution
+		firstDone.Wait()
+		executor.ExecuteAsync(secondDone)
+		<-execution
+		secondDone.Wait()
+	})
+}
