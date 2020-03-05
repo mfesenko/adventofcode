@@ -38,3 +38,8 @@ func GCD(a int64, b int64) int64 {
 	}
 	return GCD(b, a%b)
 }
+
+// LCM returns the least common multiple
+func LCM(a int64, b int64) int64 {
+	return a * b / GCD(a, b)
+}

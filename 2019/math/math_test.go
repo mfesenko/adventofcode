@@ -49,3 +49,10 @@ func TestGCD(t *testing.T) {
 	assert.Equal(t, int64(7), GCD(21, 7))
 	assert.Equal(t, int64(3), GCD(21, 18))
 }
+
+func TestLCM(t *testing.T) {
+	assert.Equal(t, int64(15), LCM(1, 15))
+	assert.Equal(t, int64(30), LCM(2, 15))
+	assert.Equal(t, int64(18), LCM(6, 9))
+	assert.Equal(t, int64(0), LCM(0, 9))
+}
