@@ -47,7 +47,7 @@ func (m Map) Asteroids() []math.Point {
 	for y, row := range m.data {
 		for x, point := range row {
 			if point {
-				points = append(points, math.NewPoint(int32(x), int32(y)))
+				points = append(points, math.NewPoint(int64(x), int64(y)))
 			}
 		}
 	}

@@ -23,10 +23,10 @@ func main() {
 	fmt.Printf("Part 2: %v\n", partTwo(wires))
 }
 
-func partOne(wires []wire) int32 {
+func partOne(wires []wire) int64 {
 	return findBestIntersection(wires, compareManhattanDistance).manhattanDistance
 }
 
-func partTwo(wires []wire) int32 {
+func partTwo(wires []wire) int64 {
 	return findBestIntersection(wires, compareStepCount).stepCount
 }

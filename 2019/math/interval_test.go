@@ -8,8 +8,8 @@ import (
 )
 
 func TestNewIntervalCreatesAnInterval(t *testing.T) {
-	start := NewPoint(rand.Int31(), rand.Int31())
-	end := NewPoint(rand.Int31(), rand.Int31())
+	start := NewPoint(rand.Int63(), rand.Int63())
+	end := NewPoint(rand.Int63(), rand.Int63())
 
 	interval := NewInterval(start, end)
 
@@ -50,11 +50,11 @@ func TestWhenIntervalsIntersectThenFindIntersectionReturnsIntersectionPoint(t *t
 func TestDistanceTo(t *testing.T) {
 	a := NewInterval(NewPoint(1, 1), NewPoint(5, 1))
 
-	assert.Equal(t, int32(3), a.DistanceTo(NewPoint(4, 1)))
+	assert.Equal(t, int64(3), a.DistanceTo(NewPoint(4, 1)))
 }
 
 func TestLength(t *testing.T) {
 	a := NewInterval(NewPoint(1, 1), NewPoint(5, 1))
 
-	assert.Equal(t, int32(4), a.Length())
+	assert.Equal(t, int64(4), a.Length())
 }

@@ -7,19 +7,19 @@ import (
 )
 
 type (
-	intersectionComparator func(intersection, intersection) int32
+	intersectionComparator func(intersection, intersection) int64
 
 	intersection struct {
 		point             math.Point
-		manhattanDistance int32
-		stepCount         int32
-		cost              int32
+		manhattanDistance int64
+		stepCount         int64
+		cost              int64
 	}
 )
 
 var _centralPort = math.NewPoint(0, 0)
 
-func newIntersection(point math.Point, stepCount int32) intersection {
+func newIntersection(point math.Point, stepCount int64) intersection {
 	return intersection{
 		point:             point,
 		manhattanDistance: point.ManhattanDistance(_centralPort),
@@ -27,11 +27,11 @@ func newIntersection(point math.Point, stepCount int32) intersection {
 	}
 }
 
-func compareStepCount(a intersection, b intersection) int32 {
+func compareStepCount(a intersection, b intersection) int64 {
 	return a.stepCount - b.stepCount
 }
 
-func compareManhattanDistance(a intersection, b intersection) int32 {
+func compareManhattanDistance(a intersection, b intersection) int64 {
 	return a.manhattanDistance - b.manhattanDistance
 }
 
@@ -44,10 +44,10 @@ func findBestIntersection(wires []wire, comparator intersectionComparator) inter
 }
 
 func findAllIntersections(a wire, b wire) []intersection {
-	intersectionMap := map[math.Point]int32{}
-	stepsA := int32(0)
+	intersectionMap := map[math.Point]int64{}
+	stepsA := int64(0)
 	for _, intervalA := range a {
-		stepsB := int32(0)
+		stepsB := int64(0)
 		for _, intervalB := range b {
 			point, ok := intervalA.FindIntersection(intervalB)
 			if ok && _centralPort != point {

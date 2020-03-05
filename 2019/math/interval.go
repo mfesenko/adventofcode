@@ -20,12 +20,12 @@ func (i Interval) Contains(point Point) bool {
 }
 
 // Length returns the lenght of the interval
-func (i Interval) Length() int32 {
+func (i Interval) Length() int64 {
 	return i.DistanceTo(i.end)
 }
 
 // DistanceTo returns the distance from the start of the interval to the provided point
-func (i Interval) DistanceTo(point Point) int32 {
+func (i Interval) DistanceTo(point Point) int64 {
 	return Abs(point.X-i.start.X) + Abs(point.Y-i.start.Y)
 }
 

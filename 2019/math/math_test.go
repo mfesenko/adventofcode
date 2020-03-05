@@ -8,7 +8,7 @@ import (
 )
 
 func TestMaxReturnsGreaterValue(t *testing.T) {
-	a := rand.Int31()
+	a := rand.Int63()
 	b := a + 1
 
 	assert.Equal(t, b, Max(a, b))
@@ -16,7 +16,7 @@ func TestMaxReturnsGreaterValue(t *testing.T) {
 }
 
 func TestMinReturnsSmallerValue(t *testing.T) {
-	a := rand.Int31()
+	a := rand.Int63()
 	b := a + 1
 
 	assert.Equal(t, a, Min(a, b))
@@ -24,14 +24,14 @@ func TestMinReturnsSmallerValue(t *testing.T) {
 }
 
 func TestAbsReturnsAbsoluteValue(t *testing.T) {
-	a := rand.Int31()
+	a := rand.Int63()
 
 	assert.Equal(t, a, Abs(a))
 	assert.Equal(t, a, Abs(-a))
 }
 
 func TestBetweenReturnsTrueIfTheThirdArgumentIsBetweenTheFirstTwo(t *testing.T) {
-	a := rand.Int31()
+	a := rand.Int63()
 	b := a + 1
 	c := b + 1
 
@@ -42,10 +42,10 @@ func TestBetweenReturnsTrueIfTheThirdArgumentIsBetweenTheFirstTwo(t *testing.T) 
 }
 
 func TestGCD(t *testing.T) {
-	assert.Equal(t, int32(22), GCD(0, 22))
-	assert.Equal(t, int32(22), GCD(22, 0))
-	assert.Equal(t, int32(0), GCD(0, 0))
-	assert.Equal(t, int32(1), GCD(13, 7))
-	assert.Equal(t, int32(7), GCD(21, 7))
-	assert.Equal(t, int32(3), GCD(21, 18))
+	assert.Equal(t, int64(22), GCD(0, 22))
+	assert.Equal(t, int64(22), GCD(22, 0))
+	assert.Equal(t, int64(0), GCD(0, 0))
+	assert.Equal(t, int64(1), GCD(13, 7))
+	assert.Equal(t, int64(7), GCD(21, 7))
+	assert.Equal(t, int64(3), GCD(21, 18))
 }

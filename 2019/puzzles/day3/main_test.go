@@ -9,8 +9,8 @@ import (
 
 type testData struct {
 	input             []string
-	manhattanDistance int32
-	stepCount         int32
+	manhattanDistance int64
+	stepCount         int64
 }
 
 func tests() []testData {
