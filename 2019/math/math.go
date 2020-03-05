@@ -1,7 +1,7 @@
 package math
 
 // Max returns a greater value
-func Max(a, b int32) int32 {
+func Max(a, b int64) int64 {
 	if a > b {
 		return a
 	}
@@ -9,7 +9,7 @@ func Max(a, b int32) int32 {
 }
 
 // Min returns a smaller value
-func Min(a, b int32) int32 {
+func Min(a, b int64) int64 {
 	if a < b {
 		return a
 	}
@@ -17,7 +17,7 @@ func Min(a, b int32) int32 {
 }
 
 // Abs returns an absolute value of a
-func Abs(a int32) int32 {
+func Abs(a int64) int64 {
 	if a < 0 {
 		return -a
 	}
@@ -25,14 +25,14 @@ func Abs(a int32) int32 {
 }
 
 // Between returns true if c is between a and b
-func Between(a, b, c int32) bool {
+func Between(a, b, c int64) bool {
 	min := Min(a, b)
 	max := Max(a, b)
 	return min <= c && c <= max
 }
 
 // GCD returns the greatest common denominator
-func GCD(a int32, b int32) int32 {
+func GCD(a int64, b int64) int64 {
 	if b == 0 {
 		return a
 	}

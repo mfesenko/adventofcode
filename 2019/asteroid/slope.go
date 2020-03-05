@@ -5,8 +5,8 @@ import (
 )
 
 type slope struct {
-	dx int32
-	dy int32
+	dx int64
+	dy int64
 }
 
 func calculateSlope(a math.Point, b math.Point) slope {

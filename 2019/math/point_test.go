@@ -8,8 +8,8 @@ import (
 )
 
 func TestNewPointCreatesAPoint(t *testing.T) {
-	x := rand.Int31()
-	y := rand.Int31()
+	x := rand.Int63()
+	y := rand.Int63()
 
 	point := NewPoint(x, y)
 
@@ -21,5 +21,5 @@ func TestManhattanDistanceReturnsManhattanDistanceBetweenThePoints(t *testing.T)
 	a := NewPoint(0, 0)
 	b := NewPoint(-2, 20)
 
-	assert.Equal(t, int32(22), a.ManhattanDistance(b))
+	assert.Equal(t, int64(22), a.ManhattanDistance(b))
 }

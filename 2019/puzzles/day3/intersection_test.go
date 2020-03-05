@@ -13,13 +13,14 @@ func withTestWires(t *testing.T, test func([]wire)) {
 	require.NoError(t, err)
 	test(wires)
 }
+
 func TestFindBestIntersectionManhattan(t *testing.T) {
 	withTestWires(t, func(wires []wire) {
 		intersection := findBestIntersection(wires, compareManhattanDistance)
 
 		assert.Equal(t, math.NewPoint(3, 3), intersection.point)
-		assert.Equal(t, int32(6), intersection.manhattanDistance)
-		assert.Equal(t, int32(40), intersection.stepCount)
+		assert.Equal(t, int64(6), intersection.manhattanDistance)
+		assert.Equal(t, int64(40), intersection.stepCount)
 	})
 }
 
@@ -28,8 +29,8 @@ func TestFindBestIntersectionStepCount(t *testing.T) {
 		intersection := findBestIntersection(wires, compareStepCount)
 
 		assert.Equal(t, math.NewPoint(6, 5), intersection.point)
-		assert.Equal(t, int32(11), intersection.manhattanDistance)
-		assert.Equal(t, int32(30), intersection.stepCount)
+		assert.Equal(t, int64(11), intersection.manhattanDistance)
+		assert.Equal(t, int64(30), intersection.stepCount)
 	})
 }
 

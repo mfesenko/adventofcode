@@ -48,10 +48,10 @@ type Robot struct {
 	position  math.Point
 	covered   map[math.Point]*tile
 
-	minX int32
-	minY int32
-	maxX int32
-	maxY int32
+	minX int64
+	minY int64
+	maxX int64
+	maxY int64
 }
 
 type tile struct {

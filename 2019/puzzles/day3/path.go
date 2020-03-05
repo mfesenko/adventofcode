@@ -15,19 +15,17 @@ const (
 )
 
 type path struct {
-	dx int32
-	dy int32
+	dx int64
+	dy int64
 }
 
 func parsePath(input string) (path, error) {
-	value, err := strconv.ParseInt(input[1:], 10, 32)
+	diff, err := strconv.ParseInt(input[1:], 10, 32)
 	if err != nil {
 		return path{}, err
 	}
 
-	diff := int32(value)
-
-	var dx, dy int32
+	var dx, dy int64
 	direction := direction(input[0])
 	switch direction {
 	case _up:

@@ -21,8 +21,8 @@ func TestWhenFailedToParseOffsetThenParsePathReturnsError(t *testing.T) {
 func TestWhenInputIsValidThenParsePathReturnsPath(t *testing.T) {
 	type testData struct {
 		input string
-		dx    int32
-		dy    int32
+		dx    int64
+		dy    int64
 	}
 	tests := []testData{
 		{
