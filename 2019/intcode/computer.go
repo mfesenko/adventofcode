@@ -61,6 +61,7 @@ func (c *Computer) Execute() {
 	for i := int64(0); i < c.program.Len(); {
 		i = c.processCommand(i)
 	}
+	close(c.output)
 }
 
 func (c *Computer) processCommand(i int64) int64 {

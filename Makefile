@@ -6,6 +6,7 @@ install-mockgen:
 	GO111MODULE=on go get -v -u github.com/golang/mock/mockgen
 
 mocks: install-mockgen
+	$(call local_mockgen,2019/arcade,Computer)
 	$(call local_mockgen,2019/async,Executable)
 	$(call local_mockgen,2019/drawing,Computer)
 
