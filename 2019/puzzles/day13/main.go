@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	program, err := intcode.LoadProgram("/home/mary/gocode/adventofcode/2019/puzzles/day13/input.txt")
+	program, err := intcode.LoadProgram("input.txt")
 	if err != nil {
 		fmt.Printf("Failed to load input: %v\n", err)
 		return
