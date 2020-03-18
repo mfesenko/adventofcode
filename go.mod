@@ -4,10 +4,10 @@ go 1.13
 
 require (
 	github.com/Flaque/filet v0.0.0-20190209224823-fc4d33cfcf93
-	github.com/golang/mock v1.4.1
+	github.com/golang/mock v1.4.3
 	github.com/google/uuid v1.1.1
 	github.com/spf13/afero v1.2.2 // indirect
 	github.com/stretchr/testify v1.4.0
 	go.uber.org/goleak v1.0.0
-	golang.org/x/tools v0.0.0-20200308013534-11ec41452d41 // indirect
+	golang.org/x/tools v0.0.0-20200318150045-ba25ddc85566 // indirect
 )
