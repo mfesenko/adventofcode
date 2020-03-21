@@ -4,41 +4,9 @@ import (
 	"strings"
 )
 
-type (
-	// Node represents a node on the map
-	Node struct {
-		name   string
-		parent *Node
-		leaves map[string]*Node
-	}
-
-	// OrbitMap represents an orbit map
-	OrbitMap struct {
-		nodes map[string]*Node
-	}
-)
-
-// NewNode creates a new Node
-func NewNode(name string) *Node {
-	return &Node{
-		name:   name,
-		leaves: map[string]*Node{},
-	}
-}
-
-// AddLeaf adds a leaf node to the node
-func (n *Node) AddLeaf(leaf *Node) {
-	leaf.parent = n
-	n.leaves[leaf.name] = leaf
-}
-
-// CheckSum calculates check sum for the node
-func (n *Node) CheckSum(start int) int {
-	sum := len(n.leaves) * start
-	for _, leaf := range n.leaves {
-		sum += leaf.CheckSum(start+1) + 1
-	}
-	return sum
+// OrbitMap represents an orbit map
+type OrbitMap struct {
+	nodes map[string]*Node
 }
 
 func (m *OrbitMap) root() *Node {
@@ -57,9 +25,17 @@ func (m *OrbitMap) FindParent(name string) string {
 
 // FindShortestPath finds shortest path between two nodes
 func (m *OrbitMap) FindShortestPath(srcName string, destName string) int {
-	alg := NewShortestPathAlg()
-	alg.Run(m.nodes[srcName])
-	return alg.GetDistance(m.nodes[destName])
+	alg := NewShortestPathAlg(m)
+	alg.Run(srcName)
+	return alg.GetDistance(destName)
+}
+
+// Neighbours returns neighbours for the given node
+func (m *OrbitMap) Neighbours(nodeName string) []string {
+	if node, ok := m.nodes[nodeName]; ok {
+		return node.Neighbours()
+	}
+	return nil
 }
 
 // LoadOrbitMap loads orbit map from input data
