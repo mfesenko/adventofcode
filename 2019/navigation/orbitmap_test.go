@@ -41,3 +41,10 @@ func TestFindShortestPath(t *testing.T) {
 		assert.Equal(t, 3, orbitMap.FindShortestPath("E", "L"))
 	})
 }
+
+func TestNeighbours(t *testing.T) {
+	withTestOrbitMap(func(orbitMap *OrbitMap) {
+		assert.Equal(t, []string{"J", "L"}, orbitMap.Neighbours("K"))
+		assert.Nil(t, orbitMap.Neighbours("X"))
+	})
+}
