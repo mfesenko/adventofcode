@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/goleak"
 )
 
 func TestExitCodeReturnsFirstCodeFromTheProgram(t *testing.T) {
@@ -256,6 +257,18 @@ func TestExecutePanicsWhenTryingToWriteParameterWithUnsupportedParameterMode(t *
 		assert.PanicsWithValue(t, fmt.Sprintf(_unsupportedParameterModeForWriting, 1), func() {
 			computer.Execute()
 		})
+	})
+}
+
+func TestStopStopsProgramExecution(t *testing.T) {
+	program := NewProgram([]int64{104, 22, 3, 3, 104, 23, 99})
+	computerWithProgram(program, func(computer *Computer) {
+		defer goleak.VerifyNone(t)
+
+		go computer.Execute()
+		<-computer.Output()
+
+		computer.Stop()
 	})
 }
 

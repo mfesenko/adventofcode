@@ -14,6 +14,7 @@ type Computer struct {
 	program      *Program
 	input        chan int64
 	output       chan int64
+	stop         chan bool
 	relativeBase int64
 }
 
@@ -22,6 +23,7 @@ func NewComputer() *Computer {
 	return &Computer{
 		input:        make(chan int64, 1),
 		output:       make(chan int64, 10),
+		stop:         make(chan bool, 1),
 		relativeBase: 0,
 	}
 }
@@ -58,10 +60,21 @@ func (c *Computer) ExitCode() int64 {
 
 // Execute executes the Intcode program
 func (c *Computer) Execute() {
+	defer close(c.output)
+
 	for i := int64(0); i < c.program.Len(); {
-		i = c.processCommand(i)
+		select {
+		case <-c.stop:
+			return
+		default:
+			i = c.processCommand(i)
+		}
 	}
-	close(c.output)
+}
+
+// Stop stops execution of the program
+func (c *Computer) Stop() {
+	close(c.stop)
 }
 
 func (c *Computer) processCommand(i int64) int64 {
@@ -94,7 +107,7 @@ func (c *Computer) processCommand(i int64) int64 {
 		})
 
 	case ReadInputOperation:
-		c.writeParameter(operation, 0, <-c.input)
+		c.readInput(operation)
 
 	case WriteOutputOperation:
 		c.output <- c.readParameter(operation, 0)
@@ -117,6 +130,15 @@ func (c *Computer) processCommand(i int64) int64 {
 	}
 
 	return i + operation.operationType.ParameterCount() + 1
+}
+
+func (c *Computer) readInput(operation Operation) {
+	select {
+	case <-c.stop:
+		return
+	case value := <-c.input:
+		c.writeParameter(operation, 0, value)
+	}
 }
 
 func (c *Computer) binaryOperation(operation Operation, op func(a, b int64) int64) {
