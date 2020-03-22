@@ -1,9 +1,12 @@
-.PHONY: mocks install-mockgen
+.PHONY: mocks install-mockgen test install-golint lint
 
 PROJECT_ROOT = github.com/mfesenko/adventofcode
 
 install-mockgen:
 	GO111MODULE=on go get -v -u github.com/golang/mock/mockgen
+
+install-golint:
+	GO111MODULE=on go get -v -u golang.org/x/lint/golint
 
 mocks: install-mockgen
 	$(call local_mockgen,2019/arcade,Computer)
@@ -14,6 +17,9 @@ mocks: install-mockgen
 
 test: mocks
 	go test -cover ./...
+
+lint: install-golint
+	${HOME}/go/bin/golint -set_exit_status ./...
 
 define run_mockgen
   	mkdir -p $(2) && rm -rf $(2)/*
