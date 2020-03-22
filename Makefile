@@ -19,9 +19,7 @@ test: mocks
 	go test -cover ./...
 
 lint: install-golint
-	if [ -n "$$(${HOME}/go/bin/golint ./...)" ]; then \
-		exit 1; \
-	fi; \
+	${HOME}/go/bin/golint -set_exit_status ./...
 
 define run_mockgen
   	mkdir -p $(2) && rm -rf $(2)/*
