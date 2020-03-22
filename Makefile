@@ -1,4 +1,4 @@
-.PHONY: mocks install-mockgen
+.PHONY: mocks install-mockgen test lint
 
 PROJECT_ROOT = github.com/mfesenko/adventofcode
 
@@ -14,6 +14,11 @@ mocks: install-mockgen
 
 test: mocks
 	go test -cover ./...
+
+lint:
+	if [ -n "$$(golint ./...)" ]; then \
+		exit 1; \
+	fi; \
 
 define run_mockgen
   	mkdir -p $(2) && rm -rf $(2)/*
