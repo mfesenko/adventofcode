@@ -6,7 +6,7 @@ install-mockgen:
 	GO111MODULE=on go get -v -u github.com/golang/mock/mockgen
 
 install-golint:
-	GO111MODULE=on go get -v -u golang.org/x/lint
+	GO111MODULE=on go get -v -u golang.org/x/lint/golint
 
 mocks: install-mockgen
 	$(call local_mockgen,2019/arcade,Computer)
