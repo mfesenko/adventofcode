@@ -19,7 +19,7 @@ test: mocks
 	go test -cover ./...
 
 lint: install-golint
-	if [ -n "$$(golint ./...)" ]; then \
+	if [ -n "$$(${HOME}/go/bin/golint ./...)" ]; then \
 		exit 1; \
 	fi; \
 
