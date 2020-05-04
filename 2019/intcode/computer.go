@@ -5,8 +5,8 @@ import (
 )
 
 const (
-	_unsupportedParameterModeForReading = "unsupported parameter mode for reading: %v"
-	_unsupportedParameterModeForWriting = "unsupported parameter mode for writing: %v"
+	unsupportedParameterModeForReading = "unsupported parameter mode for reading: %v"
+	unsupportedParameterModeForWriting = "unsupported parameter mode for writing: %v"
 )
 
 // Computer executes a program
@@ -162,7 +162,7 @@ func (c *Computer) readParameter(operation Operation, parameterIndex int64) int6
 		return c.program.Read(c.relativeBase + c.program.Read(address))
 	}
 
-	panic(fmt.Sprintf(_unsupportedParameterModeForReading, mode))
+	panic(fmt.Sprintf(unsupportedParameterModeForReading, mode))
 }
 
 func (c *Computer) writeParameter(operation Operation, parameterIndex int64, value int64) {
@@ -178,5 +178,5 @@ func (c *Computer) writeParameter(operation Operation, parameterIndex int64, val
 		return
 	}
 
-	panic(fmt.Sprintf(_unsupportedParameterModeForWriting, mode))
+	panic(fmt.Sprintf(unsupportedParameterModeForWriting, mode))
 }

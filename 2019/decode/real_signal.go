@@ -1,8 +1,6 @@
 package decode
 
-const (
-	_multiplier = 10000
-)
+const multiplier = 10000
 
 // RealSignalDecoder decodes input message
 type RealSignalDecoder struct {
@@ -19,8 +17,8 @@ func NewRealSignalDecoder(phaseCount int) *RealSignalDecoder {
 // Decode decodes input message
 func (d *RealSignalDecoder) Decode(input Message) Message {
 	n := input.Size()
-	realMessage := make([]int8, n*_multiplier)
-	for i := 0; i < _multiplier; i++ {
+	realMessage := make([]int8, n*multiplier)
+	for i := 0; i < multiplier; i++ {
 		copy(realMessage[i*n:], input.Data())
 	}
 

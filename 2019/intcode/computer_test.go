@@ -245,7 +245,7 @@ func TestOutputLargeNumber(t *testing.T) {
 func TestExecutePanicsWhenTryingToReadParameterWithUnsupportedParameterMode(t *testing.T) {
 	program := NewProgram([]int64{501, 1, 1, 1})
 	computerWithProgram(program, func(computer *Computer) {
-		assert.PanicsWithValue(t, fmt.Sprintf(_unsupportedParameterModeForReading, 5), func() {
+		assert.PanicsWithValue(t, fmt.Sprintf(unsupportedParameterModeForReading, 5), func() {
 			computer.Execute()
 		})
 	})
@@ -254,7 +254,7 @@ func TestExecutePanicsWhenTryingToReadParameterWithUnsupportedParameterMode(t *t
 func TestExecutePanicsWhenTryingToWriteParameterWithUnsupportedParameterMode(t *testing.T) {
 	program := NewProgram([]int64{11101, 1, 1, 1})
 	computerWithProgram(program, func(computer *Computer) {
-		assert.PanicsWithValue(t, fmt.Sprintf(_unsupportedParameterModeForWriting, 1), func() {
+		assert.PanicsWithValue(t, fmt.Sprintf(unsupportedParameterModeForWriting, 1), func() {
 			computer.Execute()
 		})
 	})

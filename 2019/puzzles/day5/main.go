@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	_airConditionerUnitID        = int64(1)
-	_thermalRadiatorControllerID = int64(5)
+	airConditionerUnitID        = int64(1)
+	thermalRadiatorControllerID = int64(5)
 )
 
 func main() {
@@ -18,8 +18,8 @@ func main() {
 		return
 	}
 
-	fmt.Printf("Part 1: %v\n", runDiagnosticProgram(program, _airConditionerUnitID))
-	fmt.Printf("Part 2: %v\n", runDiagnosticProgram(program, _thermalRadiatorControllerID))
+	fmt.Printf("Part 1: %v\n", runDiagnosticProgram(program, airConditionerUnitID))
+	fmt.Printf("Part 2: %v\n", runDiagnosticProgram(program, thermalRadiatorControllerID))
 }
 
 func runDiagnosticProgram(program *intcode.Program, systemID int64) int64 {
