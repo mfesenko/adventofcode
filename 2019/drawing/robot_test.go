@@ -83,7 +83,7 @@ func TestRobotPanicsOnUnsupportedDirectionCommand(t *testing.T) {
 			m.output <- int64(White)
 			m.output <- int64(command)
 		})
-		assert.PanicsWithValue(t, fmt.Sprintf(_unsupportedDirectionCommand, command), func() {
+		assert.PanicsWithValue(t, fmt.Sprintf(unsupportedDirectionCommand, command), func() {
 			robot.Run()
 		})
 	})

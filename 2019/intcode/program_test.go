@@ -44,7 +44,7 @@ func TestWhenParsedProgramDataSuccessfullyThenLoadProgramReturnsAProgram(t *test
 func TestReadPanicsGivenNegativeAddress(t *testing.T) {
 	program := randomProgram()
 
-	assert.PanicsWithValue(t, _addressCanNotBeNegative, func() {
+	assert.PanicsWithValue(t, addressCanNotBeNegative, func() {
 		program.Read(-1)
 	})
 }
@@ -66,7 +66,7 @@ func TestReadReturnsZeroGivenAddressHigherThenLen(t *testing.T) {
 func TestWritePanicsGivenNegativeAddress(t *testing.T) {
 	program := randomProgram()
 
-	assert.PanicsWithValue(t, _addressCanNotBeNegative, func() {
+	assert.PanicsWithValue(t, addressCanNotBeNegative, func() {
 		program.Write(-1, randomValueBelowHundred())
 	})
 }
