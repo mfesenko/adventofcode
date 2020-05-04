@@ -4,7 +4,7 @@ import (
 	"github.com/mfesenko/adventofcode/2019/math"
 )
 
-const _asteroid = '#'
+const asteroidAsRune = '#'
 
 // Map represents an easteroid map
 type Map struct {
@@ -21,7 +21,7 @@ func NewMap(input []string) Map {
 	for y, row := range input {
 		data[y] = make([]bool, width)
 		for x, cell := range row {
-			data[y][x] = cell == _asteroid
+			data[y][x] = cell == asteroidAsRune
 		}
 	}
 	return Map{

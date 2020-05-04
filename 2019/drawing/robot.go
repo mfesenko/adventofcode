@@ -32,7 +32,7 @@ const (
 	TurnRight DirectionCommand = 1
 )
 
-const _unsupportedDirectionCommand = "unsupported direction command: %v"
+const unsupportedDirectionCommand = "unsupported direction command: %v"
 
 // Computer represents a computer that provides instructions to the robot
 type Computer interface {
@@ -116,7 +116,7 @@ func (r *Robot) changeDirection(command DirectionCommand) {
 	case TurnLeft:
 		r.direction = (r.direction + 3) % 4
 	default:
-		panic(fmt.Sprintf(_unsupportedDirectionCommand, command))
+		panic(fmt.Sprintf(unsupportedDirectionCommand, command))
 	}
 }
 

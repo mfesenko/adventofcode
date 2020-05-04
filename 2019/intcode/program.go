@@ -7,7 +7,7 @@ import (
 	"github.com/mfesenko/adventofcode/2019/input"
 )
 
-const _addressCanNotBeNegative = "address can not be negative"
+const addressCanNotBeNegative = "address can not be negative"
 
 // Program represents a program that can be executed by Intcode computer
 type Program struct {
@@ -79,7 +79,7 @@ func (p *Program) Write(address int64, value int64) {
 
 func (p *Program) validateAddress(address int64) {
 	if address < 0 {
-		panic(_addressCanNotBeNegative)
+		panic(addressCanNotBeNegative)
 	}
 }
 

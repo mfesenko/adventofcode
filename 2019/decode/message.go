@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-const _offsetSize = 7
+const offsetSize = 7
 
 // Message represents a message received from communication system
 type Message struct {
@@ -49,11 +49,11 @@ func (m Message) String() string {
 // ParseMessage parses a message from a string
 func ParseMessage(input string) (Message, error) {
 	size := len(input)
-	if size < _offsetSize {
+	if size < offsetSize {
 		return Message{}, errors.New("message is too short")
 	}
 
-	offset, err := strconv.ParseInt(input[:_offsetSize], 10, 64)
+	offset, err := strconv.ParseInt(input[:offsetSize], 10, 64)
 	if err != nil {
 		return Message{}, err
 	}
