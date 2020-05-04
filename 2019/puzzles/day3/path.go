@@ -8,10 +8,10 @@ import (
 type direction rune
 
 const (
-	_up    = direction('U')
-	_down  = direction('D')
-	_left  = direction('L')
-	_right = direction('R')
+	up    = direction('U')
+	down  = direction('D')
+	left  = direction('L')
+	right = direction('R')
 )
 
 type path struct {
@@ -28,13 +28,13 @@ func parsePath(input string) (path, error) {
 	var dx, dy int64
 	direction := direction(input[0])
 	switch direction {
-	case _up:
+	case up:
 		dy = diff
-	case _down:
+	case down:
 		dy = -diff
-	case _right:
+	case right:
 		dx = diff
-	case _left:
+	case left:
 		dx = -diff
 	default:
 		return path{}, errors.New("invalid direction")

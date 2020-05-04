@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	_testMode        = int64(1)
-	_sensorBoostMode = int64(2)
+	testMode        = int64(1)
+	sensorBoostMode = int64(2)
 )
 
 func main() {
@@ -18,8 +18,8 @@ func main() {
 		return
 	}
 
-	fmt.Printf("Part 1: %v\n", runBoostProgram(program, _testMode))
-	fmt.Printf("Part 2: %v\n", runBoostProgram(program, _sensorBoostMode))
+	fmt.Printf("Part 1: %v\n", runBoostProgram(program, testMode))
+	fmt.Printf("Part 2: %v\n", runBoostProgram(program, sensorBoostMode))
 }
 
 func runBoostProgram(program *intcode.Program, mode int64) int64 {
