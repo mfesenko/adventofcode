@@ -10,6 +10,7 @@ install-golint:
 
 mocks: install-mockgen
 	$(call local_mockgen,2019/arcade,Computer)
+	$(call local_mockgen,2019/ascii,Computer)
 	$(call local_mockgen,2019/async,Executable)
 	$(call local_mockgen,2019/drawing,Computer)
 	$(call local_mockgen,2019/navigation,Graph)
